@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
-{ 
+{
+    //Health
+    [SerializeField] float health = 100f;
+    [SerializeField] float maxHealth = 100f;
+    public static float damage = 20f;
+
     //Player
     Rigidbody2D rb;
     BoxCollider2D bc;
 
     //Movement
     public float walkspeed;
-    public float speedLimiter;
+    float speedLimiter;
     float horizontalInput;
     float verticalInput;
 
@@ -27,6 +32,9 @@ public class PlayerController : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+        speedLimiter = walkspeed / 10;
+
+        rb.gravityScale = 0.0f;
     }
 
     private void FixedUpdate()
