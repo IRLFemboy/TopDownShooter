@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour
     // Variables
 
     public static event Action<EnemyController> OnEnemyKilled;
-    [SerializeField] float health, maxHealth = 3f;
+    [SerializeField] float health, maxHealth = 60f;
 
     [SerializeField] float moveSpeed = 5f;
     Rigidbody2D rb;
@@ -55,7 +55,7 @@ public class EnemyController : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
-
+            OnEnemyKilled?.Invoke(this);
         }
     }
 }
