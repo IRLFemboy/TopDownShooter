@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
+
+        speedLimiter = Mathf.Sqrt(walkspeed * ((horizontalInput * horizontalInput) + (verticalInput * verticalInput)));
     }
 
     // Update is called once per frame
@@ -32,7 +34,6 @@ public class PlayerController : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        speedLimiter = walkspeed / 10;
 
         rb.gravityScale = 0.0f;
     }
