@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     //Health
     [SerializeField] float health = 100f;
     [SerializeField] float maxHealth = 100f;
-    public static float damage = 20f;
+    public static float playerDamage = 20f;
 
     //Player
     Rigidbody2D rb;
@@ -53,5 +53,10 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(0, 0);
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
     }
 }
