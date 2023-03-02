@@ -8,16 +8,11 @@ public class EndOfLevelSwapScene : MonoBehaviour
     [SerializeField]
     public string nextLevelName;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.gameObject.CompareTag("End of Level"))
+        if (collision.gameObject.CompareTag("End of Level"))
         {
-            Debug.Log("Hit the end goal!");
             Invoke("SwapScene", 1);
-        }
-        else
-        {
-            Debug.Log("Didn't detect the end goal");
         }
     }
 
