@@ -8,9 +8,11 @@ public class EnemyController : MonoBehaviour
     // Variables
 
     public static event Action<EnemyController> OnEnemyKilled;
-    [SerializeField] float health, maxHealth = 60f;
+    public float health, maxHealth = 60f;
+    public float damage = 10f;
 
-    [SerializeField] float moveSpeed = 5f;
+    public float moveSpeed = 4f;
+    public float attackCool, attackSpeed = 0.75f;
     Rigidbody2D rb;
     Transform target;
     Vector2 moveDirection;
@@ -39,6 +41,15 @@ public class EnemyController : MonoBehaviour
             */
             moveDirection = direction;
         }
+
+        if (attackCool > 0)
+        {
+            attackCool -= Time.deltaTime;
+        }
+        if (attackCool <= 0)
+        {
+            attackCool = 0;
+        }
     }
 
     private void FixedUpdate()
@@ -46,6 +57,15 @@ public class EnemyController : MonoBehaviour
         if (target)
         {
             rb.velocity = new Vector2(moveDirection.x, moveDirection.y) * moveSpeed;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && attackCool == 0)
+        {
+            collision.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
+            attackCool = attackSpeed;
         }
     }
 
