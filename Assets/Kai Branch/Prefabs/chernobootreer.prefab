@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6188805445858781611}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.59, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7553049171793019072}
@@ -149,7 +149,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 60
+  damage: 10
   moveSpeed: 5
+  attackCool: 0
+  attackSpeed: 0.75
 --- !u!1 &7553049171793019087
 GameObject:
   m_ObjectHideFlags: 0
