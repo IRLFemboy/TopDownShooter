@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     //Health
     [SerializeField] float health = 100f;
     [SerializeField] float maxHealth = 100f;
-    public static float playerDamage = 20f;
 
     //Player
     Rigidbody2D rb;
@@ -15,9 +14,16 @@ public class PlayerController : MonoBehaviour
 
     //Movement
     public float walkspeed;
-    float speedLimiter;
+    float speedLimiter = .7f;
     float horizontalInput;
     float verticalInput;
+    Vector2 mousePos;
+
+    //BEAT GO SHOOTY SHOOT
+    public GameObject boolet;
+    public Transform muzzle;
+    bool canShoot = true;
+    public float fireRate;
 
 
     // Start is called before the first frame update
@@ -25,8 +31,6 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
-
-        speedLimiter = 0.7f;
     }
 
     // Update is called once per frame
@@ -36,6 +40,13 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         rb.gravityScale = 0.0f;
+
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (Input.GetButton("Fire1") && canShoot)
+        {
+            StartCoroutine(Shoot());
+        }
     }
 
     private void FixedUpdate()
@@ -54,10 +65,33 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(0, 0);
         }
+
+        Vector2 lookDir = mousePos - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        rb.rotation = angle;
+        
     }
 
     public void TakeDamage(float damage)
     {
         health -= damage;
+
+        if(health >= 0)
+        {
+            Death();
+        }
+    }
+
+    void Death()
+    {
+        Destroy(gameObject);
+    }
+
+    IEnumerator Shoot()
+    {
+        Instantiate(boolet, muzzle.position, muzzle.rotation);
+        canShoot = false;
+        yield return new WaitForSeconds(fireRate);
+        canShoot = true;
     }
 }
