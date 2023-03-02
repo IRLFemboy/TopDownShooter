@@ -20,8 +20,12 @@ public class ProjectileController : MonoBehaviour
         transform.Translate(Vector2.up * speed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
+        }
         Destroy(gameObject);
     }
 }
