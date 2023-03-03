@@ -38,7 +38,7 @@ public class BigBoss : MonoBehaviour
         if (index == 0)
         {
             Vector2 dashPos = GameObject.Find("MIDDERBEAD").transform.position;
-            transform.Translate(dashPos - new Vector2(transform.position.x, transform.position.y).normalized);
+            transform.Translate((dashPos - new Vector2(transform.position.x, transform.position.y)).normalized);
         }
         // Tri-Triple Projectiles
         if (index >= 1)
