@@ -11,7 +11,8 @@ public class ProjectileController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();   
+        rb = GetComponent<Rigidbody2D>();
+        Invoke("Despawn", 4);
     }
 
     // Update is called once per frame
@@ -25,7 +26,12 @@ public class ProjectileController : MonoBehaviour
         if(collision.gameObject.CompareTag("Enemy"))
         {
             collision.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
+            Destroy(gameObject);
         }
+    }
+
+    void Despawn()
+    {
         Destroy(gameObject);
     }
 }
