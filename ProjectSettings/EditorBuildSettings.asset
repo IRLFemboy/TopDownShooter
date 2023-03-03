@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Connors stuff/Scenes/Level 1.unity
     guid: 8b55c52cd4171a0449cc67c8d73fd13f
   - enabled: 1
-    path: Assets/Connors stuff/Scenes/ConnorsLevel.unity
-    guid: 382a5182af622ba409ce9c680c625e62
+    path: Assets/Connors stuff/Scenes/Level 2.unity
+    guid: ec45d0d9380b27b4ebd037044739d061
   m_configObjects: {}
