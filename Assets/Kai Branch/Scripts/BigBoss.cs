@@ -9,6 +9,9 @@ public class BigBoss : MonoBehaviour
     public float actionTime, bossCounter = 7.5f;
     public EnemyController enemy;
 
+    public GameObject cans;
+    public GameObject cansSpawn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,13 +32,32 @@ public class BigBoss : MonoBehaviour
 
     public void SkillCharge()
     {
-        Debug.Log("Skill Activates!");
         int index = Random.Range(0, 4);
+        Debug.Log("Skill " + (index + 1) +  " activates!");
         // Dash attack
-        if (index >= 0)
+        if (index == 0)
         {
             Vector2 dashPos = GameObject.Find("MIDDERBEAD").transform.position;
             transform.Translate(dashPos - new Vector2(transform.position.x, transform.position.y).normalized);
         }
+        // Tri-Triple Projectiles
+        if (index >= 1)
+        {
+            StartCoroutine(CanSpam());
+        }
+    }
+
+    public IEnumerator CanSpam()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                Instantiate(cans, cansSpawn.transform.position, cans.transform.rotation);
+                yield return new WaitForSeconds(.1f);
+            }
+            yield return new WaitForSeconds(.5f);
+        }
+        StopCoroutine(CanSpam());
     }
 }

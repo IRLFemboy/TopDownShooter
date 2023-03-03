@@ -35,10 +35,6 @@ public class EnemyController : MonoBehaviour
         if (target)
         {
             Vector3 direction = (target.position - transform.position).normalized;
-            /*
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            rb.rotation = angle;
-            */
             moveDirection = direction;
         }
 
@@ -66,6 +62,9 @@ public class EnemyController : MonoBehaviour
         {
             collision.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
             attackCool = attackSpeed;
+            // How to knockback??   rb.AddForce((transform.position - collision.transform.position) * 50, ForceMode2D.Impulse);
+            StartCoroutine(Stun(attackSpeed * 0.25f));
+            Debug.Log("Stunned!");
         }
     }
 
@@ -77,5 +76,17 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
             OnEnemyKilled?.Invoke(this);
         }
+    }
+
+    private IEnumerator Stun(float stunTime)
+    {
+        float baseSpeed = moveSpeed;
+        float lockSpeed = 0;
+
+        moveSpeed = lockSpeed;
+        yield return new WaitForSeconds(stunTime);
+        moveSpeed = baseSpeed;
+        Debug.Log("Unstunned!");
+        StopCoroutine(Stun(stunTime));
     }
 }
