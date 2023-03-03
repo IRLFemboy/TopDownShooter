@@ -315,7 +315,7 @@ MonoBehaviour:
   bullet: {fileID: 6980232877375354327, guid: e02225b5ce3175744b1e15ddebf6083b, type: 3}
   muzzle: {fileID: 1236092374}
   fireRate: 1
-  bulletCount: 10
+  bulletCount: 3
   weapon1: {fileID: 2097588892}
 --- !u!1 &2097588892 stripped
 GameObject:
