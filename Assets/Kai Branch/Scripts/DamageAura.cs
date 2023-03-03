@@ -23,7 +23,7 @@ public class DamageAura : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             collision.GetComponent<PlayerController>().TakeDamage(damage * Time.deltaTime);
         }
