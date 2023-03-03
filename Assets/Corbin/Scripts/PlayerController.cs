@@ -19,13 +19,6 @@ public class PlayerController : MonoBehaviour
     float verticalInput;
     Vector2 mousePos;
 
-    //BEAT GO SHOOTY SHOOT
-    public GameObject boolet;
-    public Transform muzzle;
-    bool canShoot = true;
-    public float fireRate;
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -42,11 +35,6 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = 0.0f;
 
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        if (Input.GetButton("Fire1") && canShoot)
-        {
-            StartCoroutine(Shoot());
-        }
     }
 
     private void FixedUpdate()
@@ -76,7 +64,7 @@ public class PlayerController : MonoBehaviour
     {
         health -= damage;
 
-        if(health >= 0)
+        if(health <= 0)
         {
             Death();
         }
@@ -85,13 +73,5 @@ public class PlayerController : MonoBehaviour
     void Death()
     {
         Destroy(gameObject);
-    }
-
-    IEnumerator Shoot()
-    {
-        Instantiate(boolet, muzzle.position, muzzle.rotation);
-        canShoot = false;
-        yield return new WaitForSeconds(fireRate);
-        canShoot = true;
     }
 }
